@@ -5,6 +5,7 @@
 This project is building a Dynamic Project Management Kanban Board. Key features:
 - Users are intended to be signed in using Single Sign On
 - Users will be assigned different roles. It is expected that the SSO provider handles user authentication, while the backend database in this application handles user authorization.
+-- There are 2 different authorization roles planned: "USER" and "ADMINISTRATOR".
 - When signed in, the user sees a Kanban board representing their project. Users with elevated roles will be able to acccess "administrator only" features.
 - The Main page has 2 main sections "Project Dashboard" and "Project Kanban Board"
 - Depending on user selection of "Customer" and "Project" in dropdown boxes in the "Project Dashboard" section, all other fields will be dynamically populated with project specific data retrieved from backend database.
@@ -13,9 +14,8 @@ This project is building a Dynamic Project Management Kanban Board. Key features
 
 ## Limitations
 
-For testing the Project Kanban app, there will only be 2 user sign in accounts with different roles (User account role - hardcoded to 'user' and 'password', Admin account role - hardcoded to 'admin' and 'password) but it is intended that Single Sign On authentication be used when deploying the web app. The database will support multiple users with different roles in deployment.
+For testing the Project Kanban app, there will only be 2 user sign in accounts with different roles (User account role - hardcoded to 'user' and 'password', Admin account role - hardcoded to 'admin' and 'password). Note that it is intended that Single Sign On authentication be used when eventually deploying the web app. The database will support multiple users with different roles in deployment.
 
-For the MVP, this will run locally (in a docker container)
 
 ## Technical Decisions
 
@@ -25,12 +25,9 @@ For the MVP, this will run locally (in a docker container)
 - Use "uv" as the package manager for python in the Docker container
 - Use OpenRouter for the AI calls. An OPENROUTER_API_KEY is in .env in the project root
 - Use `openai/gpt-oss-120b` as the model
-- Use SQLLite local database as the database for testing, creating a new db if it doesn't exist. Final backend deployment is intended to be in a MS SQL database, create the necessary hooks for eventual deployment. 
+- Use SQLLite local database as the database for testing, creating a new db if it doesn't exist. Final backend deployment is intended to be in a MS SQL database, create the necessary hooks for eventual deployment.
+- Create an "appsettings.json" file to store the connection string to the MS SQL database for eventual deployment.
 - Start and Stop server scripts for Mac, PC, Linux in scripts/
-
-## Starting Point
-
-A working frontend has been built and is already in frontend. This is not yet designed for the Docker setup. It's a pure frontend-only demo.
 
 ## Color Scheme
 

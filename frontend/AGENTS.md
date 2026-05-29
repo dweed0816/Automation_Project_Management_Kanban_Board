@@ -9,7 +9,7 @@
 ---- Banner title text "Ascential: Automation Project Management Kanban Board"
 --- Logged in user name
 --- Logged in user role 
--- Section #2: 
+-- Section #2 - Project Dashboard: 
 --- 7 fields: 
 ---- "Customer" (Dropdown box)
 ---- "Project" (Dropdown box)
@@ -19,9 +19,9 @@
 ---- "End Date" Date picker)
 ---- "Project Description" (Textarea)
 ---- "Admin Config" (Button)
--- Section #3: 
+-- Section #3 - Project Kanban Board: 
 --- Horizontal swimlanes with configurable headers
-----In each swimlane, kanban post it notes with the following subsections: 
+----In each swimlane, kanban post it notes with the following fields: 
 ----- "Title" (Text box)
 ----- "Task Description" (Text box) 
 ----- "Assigned to" (Text box)
