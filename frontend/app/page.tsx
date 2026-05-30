@@ -27,25 +27,40 @@ export default function Home() {
 
   function handleCustomerChange(iidc: string) {
     const firstProj = state.projects.find((p) => p.customerId === iidc);
-    setState((prev) => ({
-      ...prev,
-      selectedCustomerId: iidc,
-      selectedProjectId: firstProj?.iidp ?? "",
-      projectDescription: firstProj?.description ?? "",
-      swimlanes: [],
-      swimlaneCounter: 0,
-    }));
+    const newIidp = firstProj?.iidp ?? "";
+    setState((prev) => {
+      const saved = newIidp ? (prev.swimlanesByProject[newIidp] ?? { swimlanes: [], counter: 0 }) : { swimlanes: [], counter: 0 };
+      return {
+        ...prev,
+        selectedCustomerId: iidc,
+        selectedProjectId: newIidp,
+        projectDescription: firstProj?.description ?? "",
+        swimlanes: saved.swimlanes,
+        swimlaneCounter: saved.counter,
+        swimlanesByProject: {
+          ...prev.swimlanesByProject,
+          [prev.selectedProjectId]: { swimlanes: prev.swimlanes, counter: prev.swimlaneCounter },
+        },
+      };
+    });
   }
 
   function handleProjectChange(iidp: string) {
     const proj = state.projects.find((p) => p.iidp === iidp);
-    setState((prev) => ({
-      ...prev,
-      selectedProjectId: iidp,
-      projectDescription: proj?.description ?? "",
-      swimlanes: [],
-      swimlaneCounter: 0,
-    }));
+    setState((prev) => {
+      const saved = prev.swimlanesByProject[iidp] ?? { swimlanes: [], counter: 0 };
+      return {
+        ...prev,
+        selectedProjectId: iidp,
+        projectDescription: proj?.description ?? "",
+        swimlanes: saved.swimlanes,
+        swimlaneCounter: saved.counter,
+        swimlanesByProject: {
+          ...prev.swimlanesByProject,
+          [prev.selectedProjectId]: { swimlanes: prev.swimlanes, counter: prev.swimlaneCounter },
+        },
+      };
+    });
   }
 
   function handleAddSwimlane() {

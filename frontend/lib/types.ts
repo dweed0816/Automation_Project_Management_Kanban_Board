@@ -48,6 +48,7 @@ export interface AppState {
   projectDescription: string;
   swimlanes: Swimlane[];
   swimlaneCounter: number;
+  swimlanesByProject: Record<string, { swimlanes: Swimlane[]; counter: number }>;
   customerCounter: number;
   projectCounter: number;
   auth: { username: string; role: string };

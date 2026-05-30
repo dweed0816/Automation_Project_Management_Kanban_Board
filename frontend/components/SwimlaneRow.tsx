@@ -1,9 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import { Draggable, Droppable } from "@hello-pangea/dnd";
 import type { DraggableProvided, DraggableStateSnapshot, DroppableProvided } from "@hello-pangea/dnd";
 import type { Swimlane, KanbanCard as KanbanCardType } from "@/lib/types";
 import KanbanCard from "./KanbanCard";
+import ConfirmModal from "./ConfirmModal";
 
 interface SwimlaneRowProps {
   swimlane: Swimlane;
@@ -30,11 +32,21 @@ export default function SwimlaneRow({
   onEditUpdate,
   onDeleteUpdate,
 }: SwimlaneRowProps) {
+  const [confirmDelete, setConfirmDelete] = useState(false);
+
   const sortedCards = [...swimlane.cards].sort(
     (a, b) => a.displayOrder - b.displayOrder
   );
 
   return (
+    <>
+      {confirmDelete && (
+        <ConfirmModal
+          message={`Delete swimlane "${swimlane.header}"? All cards inside will also be deleted.`}
+          onConfirm={() => { setConfirmDelete(false); onDeleteSwimlane(); }}
+          onCancel={() => setConfirmDelete(false)}
+        />
+      )}
     <Draggable draggableId={`swimlane-${swimlane.swimlaneId}`} index={index}>
       {(provided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
         <div
@@ -72,14 +84,14 @@ export default function SwimlaneRow({
             </span>
             <button
               onClick={onAddCard}
-              className="px-3 py-1 text-xs font-semibold text-white rounded"
+              className="px-3 py-1 text-xs font-semibold text-white rounded cursor-pointer"
               style={{ backgroundColor: "var(--dark-orange)" }}
             >
               + Card
             </button>
             <button
-              onClick={onDeleteSwimlane}
-              className="px-2 py-1 text-xs font-semibold rounded border"
+              onClick={() => setConfirmDelete(true)}
+              className="px-2 py-1 text-xs font-semibold rounded border cursor-pointer"
               style={{ color: "#cc0000", borderColor: "#cc0000", backgroundColor: "transparent" }}
             >
               Delete
@@ -112,5 +124,6 @@ export default function SwimlaneRow({
         </div>
       )}
     </Draggable>
+    </>
   );
 }

@@ -1,9 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import { Draggable } from "@hello-pangea/dnd";
 import type { DraggableProvided } from "@hello-pangea/dnd";
 import type { KanbanCard as KanbanCardType, UpdateRecord } from "@/lib/types";
 import UpdatesField from "./UpdatesField";
+import ConfirmModal from "./ConfirmModal";
 
 const CARD_STATUS_OPTIONS = ["Not Started", "In Progress", "On Hold", "Complete"];
 
@@ -43,24 +45,34 @@ export default function KanbanCard({
   onEditUpdate,
   onDeleteUpdate,
 }: KanbanCardProps) {
+  const [confirmDelete, setConfirmDelete] = useState(false);
+
   return (
     <Draggable draggableId={card.kanbanCardId} index={index}>
       {(provided: DraggableProvided) => (
-        <div
-          ref={provided.innerRef}
-          {...provided.draggableProps}
-          className="rounded border flex flex-col"
-          style={{
-            ...provided.draggableProps.style,
-            backgroundColor: "#fff",
-            borderColor: "var(--accent-yellow)",
-            borderLeftWidth: 3,
-            minWidth: 220,
-            maxWidth: 260,
-            padding: 10,
-            gap: 6,
-          }}
-        >
+        <>
+          {confirmDelete && (
+            <ConfirmModal
+              message={`Delete card "${card.title}"? This cannot be undone.`}
+              onConfirm={() => { setConfirmDelete(false); onDelete(); }}
+              onCancel={() => setConfirmDelete(false)}
+            />
+          )}
+          <div
+            ref={provided.innerRef}
+            {...provided.draggableProps}
+            className="rounded border flex flex-col"
+            style={{
+              ...provided.draggableProps.style,
+              backgroundColor: "#fff",
+              borderColor: "var(--accent-yellow)",
+              borderLeftWidth: 3,
+              minWidth: 220,
+              maxWidth: 260,
+              padding: 10,
+              gap: 6,
+            }}
+          >
           <div className="flex justify-between items-start gap-1">
             <div
               {...provided.dragHandleProps}
@@ -85,8 +97,8 @@ export default function KanbanCard({
               />
             </div>
             <button
-              onClick={onDelete}
-              className="text-xs px-1 rounded shrink-0"
+              onClick={() => setConfirmDelete(true)}
+              className="text-xs px-1 rounded shrink-0 cursor-pointer"
               style={{ color: "#cc0000", lineHeight: 1.4 }}
               title="Delete card"
             >
@@ -137,7 +149,8 @@ export default function KanbanCard({
               ))}
             </select>
           </div>
-        </div>
+          </div>
+        </>
       )}
     </Draggable>
   );

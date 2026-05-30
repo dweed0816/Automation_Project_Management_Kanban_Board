@@ -66,13 +66,13 @@ export default function ProjectDashboard({
       style={{ borderColor: "var(--accent-yellow)", backgroundColor: "#fff" }}
     >
       <div className="flex items-center justify-between mb-3">
-        <h2 className="text-base font-bold" style={{ color: "var(--orange)" }}>
+        <h2 className="text-lg font-bold" style={{ color: "#5522dd" }}>
           Project Dashboard
         </h2>
         {role === "administrator" && (
           <button
             onClick={onAdminConfig}
-            className="px-4 py-2 text-sm font-semibold text-white rounded"
+            className="px-4 py-2 text-sm font-semibold text-white rounded cursor-pointer"
             style={{ backgroundColor: "var(--dark-orange)" }}
           >
             Admin Config
@@ -80,7 +80,8 @@ export default function ProjectDashboard({
         )}
       </div>
 
-      <div className="grid grid-cols-2 gap-x-8 gap-y-3 md:grid-cols-4 lg:grid-cols-7">
+      {/* Row 1: Customer, Project, Manager, Status */}
+      <div className="grid grid-cols-2 gap-x-6 gap-y-3 md:grid-cols-4 mb-3">
         <div className="flex flex-col gap-1">
           <label style={labelStyle}>Customer</label>
           <select
@@ -89,9 +90,7 @@ export default function ProjectDashboard({
             style={inputStyle}
           >
             {customers.map((c) => (
-              <option key={c.iidc} value={c.iidc}>
-                {c.customerName}
-              </option>
+              <option key={c.iidc} value={c.iidc}>{c.customerName}</option>
             ))}
           </select>
         </div>
@@ -104,9 +103,7 @@ export default function ProjectDashboard({
             style={inputStyle}
           >
             {filteredProjects.map((p) => (
-              <option key={p.iidp} value={p.iidp}>
-                {p.projectName}
-              </option>
+              <option key={p.iidp} value={p.iidp}>{p.projectName}</option>
             ))}
           </select>
         </div>
@@ -129,13 +126,14 @@ export default function ProjectDashboard({
             style={inputStyle}
           >
             {STATUS_OPTIONS.map((s) => (
-              <option key={s} value={s}>
-                {s}
-              </option>
+              <option key={s} value={s}>{s}</option>
             ))}
           </select>
         </div>
+      </div>
 
+      {/* Row 2: Start Date, End Date */}
+      <div className="grid grid-cols-2 gap-x-6 gap-y-3 md:grid-cols-4 mb-3">
         <div className="flex flex-col gap-1">
           <label style={labelStyle}>Start Date</label>
           <input
@@ -155,16 +153,17 @@ export default function ProjectDashboard({
             style={inputStyle}
           />
         </div>
+      </div>
 
-        <div className="flex flex-col gap-1 col-span-2 md:col-span-4 lg:col-span-1">
-          <label style={labelStyle}>Project Description</label>
-          <textarea
-            value={projectDescription}
-            onChange={(e) => onProjectDescriptionChange(e.target.value)}
-            rows={2}
-            style={{ ...inputStyle, resize: "vertical" }}
-          />
-        </div>
+      {/* Row 3: Project Description */}
+      <div className="flex flex-col gap-1">
+        <label style={labelStyle}>Project Description</label>
+        <textarea
+          value={projectDescription}
+          onChange={(e) => onProjectDescriptionChange(e.target.value)}
+          rows={3}
+          style={{ ...inputStyle, resize: "vertical", maxWidth: 800 }}
+        />
       </div>
     </section>
   );

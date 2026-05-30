@@ -38,17 +38,10 @@ export default function KanbanBoard({
 
   return (
     <section className="w-full px-6 py-4 flex-1">
-      <div className="flex items-center justify-between mb-3">
-        <h2 className="text-base font-bold" style={{ color: "var(--purple)" }}>
+      <div className="mb-3">
+        <h2 className="text-lg font-bold" style={{ color: "#5522dd" }}>
           Project Kanban Board
         </h2>
-        <button
-          onClick={onAddSwimlane}
-          className="px-4 py-2 text-sm font-semibold text-white rounded"
-          style={{ backgroundColor: "var(--dark-orange)" }}
-        >
-          + Swimlane
-        </button>
       </div>
 
       <DragDropContext onDragEnd={onDragEnd}>
@@ -79,6 +72,16 @@ export default function KanbanBoard({
           )}
         </Droppable>
       </DragDropContext>
+
+      <div className="mt-3">
+        <button
+          onClick={onAddSwimlane}
+          className="px-4 py-2 text-sm font-semibold text-white rounded cursor-pointer"
+          style={{ backgroundColor: "var(--dark-orange)" }}
+        >
+          + Swimlane
+        </button>
+      </div>
     </section>
   );
 }

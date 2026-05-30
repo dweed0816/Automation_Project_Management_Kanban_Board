@@ -88,6 +88,7 @@ export const initialState: AppState = {
     },
   ],
   swimlaneCounter: 2,
+  swimlanesByProject: {},
   customerCounter: 1,
   projectCounter: 1,
 };
