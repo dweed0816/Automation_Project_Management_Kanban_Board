@@ -11,33 +11,33 @@
 Set up Docker infrastructure, FastAPI backend, and start/stop scripts. Confirm a working "hello world" locally.
 
 ### Steps
-- [ ] Create `backend/` Python project structure with `uv` (pyproject.toml, main.py)
-- [ ] Add FastAPI app with:
-  - [ ] A `/health` endpoint returning `{"status": "ok"}`
-  - [ ] A `/api/hello` endpoint returning `{"message": "hello world"}`
-  - [ ] Static file serving of `frontend/out/` at `/` (NextJS export target)
-- [ ] Create `Dockerfile` in project root:
-  - [ ] Uses a Python base image
-  - [ ] Installs `uv`, installs Python dependencies via `uv`
-  - [ ] Copies backend and frontend build output into image
-  - [ ] Exposes port 8000, runs uvicorn on startup
-- [ ] Create `docker-compose.yml` in project root for local development
-- [ ] Create `appsettings.json` in project root with MS SQL connection string placeholder
-- [ ] Create start/stop scripts in `scripts/`:
-  - [ ] `start_mac.sh`
-  - [ ] `start_linux.sh`
-  - [ ] `start_windows.bat`
-  - [ ] `stop_mac.sh`
-  - [ ] `stop_linux.sh`
-  - [ ] `stop_windows.bat`
-- [ ] Create a minimal placeholder `frontend/out/index.html` (static hello world HTML) to validate static serving before NextJS is built
+- [x] Create `backend/` Python project structure with `uv` (pyproject.toml, main.py)
+- [x] Add FastAPI app with:
+  - [x] A `/health` endpoint returning `{"status": "ok"}`
+  - [x] A `/api/hello` endpoint returning `{"message": "hello world"}`
+  - [x] Static file serving of `frontend/out/` at `/` (NextJS export target)
+- [x] Create `Dockerfile` in project root:
+  - [x] Uses a Python base image
+  - [x] Installs `uv`, installs Python dependencies via `uv`
+  - [x] Copies backend and frontend build output into image
+  - [x] Exposes port 8000, runs uvicorn on startup
+- [x] Create `docker-compose.yml` in project root for local development
+- [x] Create `appsettings.json` in project root with MS SQL connection string placeholder
+- [x] Create start/stop scripts in `scripts/`:
+  - [x] `start_mac.sh`
+  - [x] `start_linux.sh`
+  - [x] `start_windows.bat`
+  - [x] `stop_mac.sh`
+  - [x] `stop_linux.sh`
+  - [x] `stop_windows.bat`
+- [x] Create a minimal placeholder `frontend/out/index.html` (static hello world HTML) to validate static serving before NextJS is built
 
 ### Tests
-- [ ] `GET /health` returns 200 `{"status": "ok"}`
-- [ ] `GET /api/hello` returns 200 `{"message": "hello world"}`
-- [ ] `GET /` serves the static HTML file with 200
-- [ ] Docker image builds without error (`docker build`)
-- [ ] Container starts and all above endpoints respond (`docker-compose up`)
+- [x] `GET /health` returns 200 `{"status": "ok"}`
+- [x] `GET /api/hello` returns 200 `{"message": "hello world"}`
+- [x] `GET /` serves the static HTML file with 200
+- [x] Docker image builds without error (`docker build`)
+- [x] Container starts and all above endpoints respond (`docker-compose up`)
 
 ### Success criteria
 Docker container starts locally, `/health` and `/api/hello` return correct JSON, and `/` serves static HTML. Start/stop scripts exist for all three platforms.
@@ -49,59 +49,64 @@ Docker container starts locally, `/health` and `/api/hello` return correct JSON,
 Build the full NextJS frontend from scratch per `frontend/AGENTS.md`. Integrate all layout, functionality, and design requirements.
 
 ### Steps
-- [ ] Initialise NextJS app in `frontend/` (TypeScript, App Router, Tailwind CSS)
-- [ ] Copy `external_files/Ascential_Logo.webp` into `frontend/public/`
-- [ ] Implement page layout — 3 vertical sections:
-  - [ ] Section 1 — Page Banner:
-    - [ ] Company logo (Ascential_Logo.webp)
-    - [ ] Page title: "Ascential: Automation Project Management Kanban Board"
-    - [ ] Logged-in user name display
-    - [ ] Logged-in user role display
-  - [ ] Section 2 — Project Dashboard:
-    - [ ] Customer dropdown
-    - [ ] Project dropdown
-    - [ ] Manager text box
-    - [ ] Status dropdown
-    - [ ] Start Date date picker
-    - [ ] End Date date picker
-    - [ ] Project Description textarea
-    - [ ] Admin Config button (hidden for non-admin users)
-  - [ ] Section 3 — Project Kanban Board:
-    - [ ] Horizontal swimlanes with editable headers
-    - [ ] Kanban cards within swimlanes, each with: Title, Task Description, Assigned To, Updates (textarea), Status dropdown
-- [ ] Swimlane functionality:
-  - [ ] Add swimlane
-  - [ ] Delete swimlane
-  - [ ] Drag-and-reorder swimlanes (display order only, does not affect SwimlaneID)
-  - [ ] SwimlaneID generated as `IIDC-IIDP-A`, `IIDC-IIDP-B`, etc. (upper case alphabet sequence)
-  - [ ] SwimlaneID displayed as greyed-out label in each swimlane
-- [ ] Kanban card functionality:
-  - [ ] Add card to a swimlane
-  - [ ] Delete card
-  - [ ] Drag-and-reorder cards within and between swimlanes (display order only, does not affect KanbanCardID)
-  - [ ] Card drag only initiates from the card title block
-  - [ ] KanbanCardID generated as `SwimlaneID-1`, `SwimlaneID-2`, etc.
-  - [ ] KanbanCardID displayed as greyed-out label in each card
-  - [ ] Updates field: each save creates a new timestamped record; records displayed newest-first; individual records editable and deletable
-- [ ] Admin Config modal (admin role only):
-  - [ ] Section 1 — Customer: select existing or create new; fields: IIDC (read-only), Cust ID (editable), Customer Name (editable)
-  - [ ] Section 2 — Project: select existing or create new; fields: IIDP (read-only), Proj ID (editable), Project Name (editable)
-  - [ ] Section 3 — Project Description textarea
-- [ ] Apply colour scheme throughout (purple headings, orange links, dark orange buttons, yellow accents, grey labels)
-- [ ] Apply professional minimalistic style per design spec
-- [ ] All data is local/in-memory state for now (backend integration comes in Part 7)
-- [ ] Configure NextJS for static export (`output: 'export'`) so `next build` produces `frontend/out/`
+- [x] Initialise NextJS app in `frontend/` (TypeScript, App Router, Tailwind CSS)
+- [x] Copy `external_files/Ascential_Logo.webp` into `frontend/public/`
+- [x] Implement page layout — 3 vertical sections:
+  - [x] Section 1 — Page Banner:
+    - [x] Company logo (Ascential_Logo.webp)
+    - [x] Page title: "Ascential: Automation Project Management Kanban Board"
+    - [x] Logged-in user name display
+    - [x] Logged-in user role display
+  - [x] Section 2 — Project Dashboard:
+    - [x] Customer dropdown
+    - [x] Project dropdown
+    - [x] Manager text box
+    - [x] Status dropdown
+    - [x] Start Date date picker
+    - [x] End Date date picker
+    - [x] Project Description textarea
+    - [x] Admin Config button (hidden for non-admin users)
+  - [x] Section 3 — Project Kanban Board:
+    - [x] Horizontal swimlanes with editable headers
+    - [x] Kanban cards within swimlanes, each with: Title, Task Description, Assigned To, Updates (textarea), Status dropdown
+- [x] Swimlane functionality:
+  - [x] Add swimlane
+  - [x] Delete swimlane
+  - [x] Drag-and-reorder swimlanes (display order only, does not affect SwimlaneID)
+  - [x] SwimlaneID generated as `IIDC-IIDP-A`, `IIDC-IIDP-B`, etc. (upper case alphabet sequence)
+  - [x] SwimlaneID displayed as greyed-out label in each swimlane
+- [x] Kanban card functionality:
+  - [x] Add card to a swimlane
+  - [x] Delete card
+  - [x] Drag-and-reorder cards within and between swimlanes (display order only, does not affect KanbanCardID)
+  - [x] Card drag only initiates from the card title block
+  - [x] KanbanCardID generated as `SwimlaneID-1`, `SwimlaneID-2`, etc.
+  - [x] KanbanCardID displayed as greyed-out label in each card
+  - [x] Updates field: each save creates a new timestamped record; records displayed newest-first; individual records editable and deletable
+- [x] Admin Config modal (admin role only):
+  - [x] Section 1 — Customer: select existing or create new; fields: IIDC (read-only), Cust ID (editable), Customer Name (editable)
+  - [x] Section 2 — Project: select existing or create new; fields: IIDP (read-only), Proj ID (editable), Project Name (editable)
+  - [x] Section 3 — Project Description textarea
+- [x] Apply colour scheme throughout (purple headings, orange links, dark orange buttons, yellow accents, grey labels)
+- [x] Apply professional minimalistic style per design spec
+- [x] All data is local/in-memory state for now (backend integration comes in Part 7)
+- [x] Configure NextJS for static export (`output: 'export'`) so `next build` produces `frontend/out/`
 
 ### Tests
-- [ ] Unit tests for SwimlaneID generation logic (sequence A, B, C...)
-- [ ] Unit tests for KanbanCardID generation logic (SwimlaneID-1, SwimlaneID-2...)
-- [ ] Unit tests for Updates timestamp ordering (newest-first)
-- [ ] Integration test: add swimlane, add card, reorder — IDs unchanged
-- [ ] Integration test: Admin Config modal visible for admin role, hidden for user role
-- [ ] `next build` completes without errors and produces `frontend/out/`
+- [x] Unit tests for SwimlaneID generation logic (sequence A, B, C...)
+- [x] Unit tests for KanbanCardID generation logic (SwimlaneID-1, SwimlaneID-2...)
+- [x] Unit tests for Updates timestamp ordering (newest-first)
+- [x] Integration test: add swimlane, add card, reorder — IDs unchanged
+- [x] Integration test: Admin Config modal visible for admin role, hidden for user role
+- [x] `next build` completes without errors and produces `frontend/out/`
 
 ### Success criteria
 The app runs locally via `npm run dev`. All three sections render correctly. Swimlanes and cards can be added, deleted, and dragged. IDs are generated correctly and displayed as greyed labels. Admin Config modal is role-gated. `next build` produces a static export.
+
+### Verified findings
+- All success criteria confirmed by runtime observation (Playwright headless browser).
+- Bug found and fixed: `UpdatesField` called `toLocaleString()` during SSR, which formatted dates differently on server vs client, causing a React hydration mismatch on every page load. Fixed with `suppressHydrationWarning` on the timestamp element.
+- Windows environment note: `npm run dev` (Turbopack default) panics on this machine because the full project path pushes Turbopack's `.next/` cache file paths past Windows' 260-character MAX_PATH limit. Use `npx next dev --webpack` instead. `next build` and the static export are unaffected.
 
 ---
 
