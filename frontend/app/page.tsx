@@ -239,6 +239,7 @@ export default function Home() {
     }
 
     if (type === "CARD") {
+      if (source.droppableId !== destination.droppableId) return;
       setState((prev) => {
         const fromLane = prev.swimlanes.find(
           (s) => s.swimlaneId === source.droppableId

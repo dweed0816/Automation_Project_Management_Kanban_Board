@@ -30,7 +30,7 @@ export default function Banner({ username, role }: BannerProps) {
         </h1>
       </div>
       <div className="flex flex-col items-end">
-        <span className="font-semibold" style={{ color: "var(--orange)" }}>
+        <span className="text-sm" style={{ color: "var(--orange)" }}>
           {username}
         </span>
         <span className="text-sm" style={{ color: "var(--gray-text)" }}>

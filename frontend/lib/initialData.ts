@@ -18,8 +18,8 @@ export const initialState: AppState = {
   selectedProjectId: "PROJ01",
   manager: "Jane Smith",
   status: "In Progress",
-  startDate: "2025-01-01",
-  endDate: "2025-12-31",
+  startDate: "",
+  endDate: "",
   projectDescription: "Automate project management processes end-to-end.",
   swimlanes: [
     {

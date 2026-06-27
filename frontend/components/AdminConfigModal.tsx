@@ -172,8 +172,9 @@ export default function AdminConfigModal({
         className="bg-white rounded-lg shadow-xl w-full max-w-xl max-h-[90vh] overflow-y-auto"
         style={{ borderTop: "4px solid var(--accent-yellow)" }}
       >
-        <div className="flex items-center justify-between px-6 py-4 border-b" style={{ borderColor: "#eee" }}>
-          <h2 className="font-bold text-lg" style={{ color: "var(--purple)" }}>
+        <div className="flex items-center justify-between px-6 py-4 border-b" style={{ borderColor: "#eee", backgroundColor: "#f0f0f0" }}>
+          <h2 className="font-bold text-lg flex items-center gap-2" style={{ color: "#dd7722" }}>
+            <span>⚙</span>
             Admin Config
           </h2>
           <button onClick={onClose} style={{ color: "var(--gray-text)", fontSize: "1.2rem" }}>
@@ -183,226 +184,230 @@ export default function AdminConfigModal({
 
         <div className="px-6 py-4 flex flex-col gap-5">
           <section>
-            <h3 className="font-semibold text-sm mb-2" style={{ color: "var(--orange)" }}>
+            <h3 className="text-lg font-bold mb-2" style={{ color: "#5522dd" }}>
               Customer
             </h3>
-            <div className="flex gap-3 mb-3">
-              <button
-                onClick={() => setCustMode("select")}
-                className="px-3 py-1 text-xs rounded border font-semibold"
-                style={{
-                  borderColor: "var(--dark-orange)",
-                  backgroundColor: custMode === "select" ? "var(--dark-orange)" : "transparent",
-                  color: custMode === "select" ? "#fff" : "var(--dark-orange)",
-                }}
-              >
-                Select Existing
-              </button>
-              <button
-                onClick={() => setCustMode("new")}
-                className="px-3 py-1 text-xs rounded border font-semibold"
-                style={{
-                  borderColor: "var(--dark-orange)",
-                  backgroundColor: custMode === "new" ? "var(--dark-orange)" : "transparent",
-                  color: custMode === "new" ? "#fff" : "var(--dark-orange)",
-                }}
-              >
-                Create New
-              </button>
-            </div>
+            <div className="pl-4">
+              <div className="flex gap-3 mb-3">
+                <button
+                  onClick={() => setCustMode("select")}
+                  className="px-3 py-1 text-xs rounded border font-semibold"
+                  style={{
+                    borderColor: "var(--dark-orange)",
+                    backgroundColor: custMode === "select" ? "var(--dark-orange)" : "transparent",
+                    color: custMode === "select" ? "#fff" : "var(--dark-orange)",
+                  }}
+                >
+                  Select Existing
+                </button>
+                <button
+                  onClick={() => setCustMode("new")}
+                  className="px-3 py-1 text-xs rounded border font-semibold"
+                  style={{
+                    borderColor: "var(--dark-orange)",
+                    backgroundColor: custMode === "new" ? "var(--dark-orange)" : "transparent",
+                    color: custMode === "new" ? "#fff" : "var(--dark-orange)",
+                  }}
+                >
+                  Create New
+                </button>
+              </div>
 
-            {custMode === "select" && (
-              <div className="flex flex-col gap-2">
-                <div>
-                  <label style={labelStyle}>Select Customer</label>
-                  <select
-                    value={selectedIidc}
-                    onChange={(e) => setSelectedIidc(e.target.value)}
-                    style={inputStyle}
-                  >
-                    {customers.map((c) => (
-                      <option key={c.iidc} value={c.iidc}>{c.customerName}</option>
-                    ))}
-                  </select>
+              {custMode === "select" && (
+                <div className="flex flex-col gap-2">
+                  <div>
+                    <label style={labelStyle}>Select Customer</label>
+                    <select
+                      value={selectedIidc}
+                      onChange={(e) => setSelectedIidc(e.target.value)}
+                      style={inputStyle}
+                    >
+                      {customers.map((c) => (
+                        <option key={c.iidc} value={c.iidc}>{c.customerName}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="grid grid-cols-3 gap-2">
+                    <div>
+                      <label style={labelStyle}>IIDC</label>
+                      <input type="text" value={selectedIidc} readOnly style={readonlyStyle} />
+                    </div>
+                    <div>
+                      <label style={labelStyle}>Cust ID</label>
+                      <input
+                        type="text"
+                        value={editCustId}
+                        onChange={(e) => setEditCustId(e.target.value)}
+                        style={inputStyle}
+                      />
+                    </div>
+                    <div>
+                      <label style={labelStyle}>Customer Name</label>
+                      <input
+                        type="text"
+                        value={editCustName}
+                        onChange={(e) => setEditCustName(e.target.value)}
+                        style={inputStyle}
+                      />
+                    </div>
+                  </div>
                 </div>
+              )}
+
+              {custMode === "new" && (
                 <div className="grid grid-cols-3 gap-2">
                   <div>
                     <label style={labelStyle}>IIDC</label>
-                    <input type="text" value={selectedIidc} readOnly style={readonlyStyle} />
+                    <input
+                      type="text"
+                      value={nextIidc(custCounter + 1)}
+                      readOnly
+                      style={readonlyStyle}
+                    />
                   </div>
                   <div>
                     <label style={labelStyle}>Cust ID</label>
                     <input
                       type="text"
-                      value={editCustId}
-                      onChange={(e) => setEditCustId(e.target.value)}
+                      value={newCustId}
+                      onChange={(e) => setNewCustId(e.target.value)}
                       style={inputStyle}
+                      placeholder="e.g. XYZ"
                     />
                   </div>
                   <div>
                     <label style={labelStyle}>Customer Name</label>
                     <input
                       type="text"
-                      value={editCustName}
-                      onChange={(e) => setEditCustName(e.target.value)}
+                      value={newCustName}
+                      onChange={(e) => setNewCustName(e.target.value)}
                       style={inputStyle}
+                      placeholder="Name"
                     />
                   </div>
                 </div>
-              </div>
-            )}
-
-            {custMode === "new" && (
-              <div className="grid grid-cols-3 gap-2">
-                <div>
-                  <label style={labelStyle}>IIDC</label>
-                  <input
-                    type="text"
-                    value={nextIidc(custCounter + 1)}
-                    readOnly
-                    style={readonlyStyle}
-                  />
-                </div>
-                <div>
-                  <label style={labelStyle}>Cust ID</label>
-                  <input
-                    type="text"
-                    value={newCustId}
-                    onChange={(e) => setNewCustId(e.target.value)}
-                    style={inputStyle}
-                    placeholder="e.g. XYZ"
-                  />
-                </div>
-                <div>
-                  <label style={labelStyle}>Customer Name</label>
-                  <input
-                    type="text"
-                    value={newCustName}
-                    onChange={(e) => setNewCustName(e.target.value)}
-                    style={inputStyle}
-                    placeholder="Name"
-                  />
-                </div>
-              </div>
-            )}
+              )}
+            </div>
           </section>
 
           <section>
-            <h3 className="font-semibold text-sm mb-2" style={{ color: "var(--orange)" }}>
+            <h3 className="text-lg font-bold mb-2" style={{ color: "#5522dd" }}>
               Project
             </h3>
-            <div className="flex gap-3 mb-3">
-              <button
-                onClick={() => setProjMode("select")}
-                className="px-3 py-1 text-xs rounded border font-semibold"
-                style={{
-                  borderColor: "var(--dark-orange)",
-                  backgroundColor: projMode === "select" ? "var(--dark-orange)" : "transparent",
-                  color: projMode === "select" ? "#fff" : "var(--dark-orange)",
-                }}
-              >
-                Select Existing
-              </button>
-              <button
-                onClick={() => setProjMode("new")}
-                className="px-3 py-1 text-xs rounded border font-semibold"
-                style={{
-                  borderColor: "var(--dark-orange)",
-                  backgroundColor: projMode === "new" ? "var(--dark-orange)" : "transparent",
-                  color: projMode === "new" ? "#fff" : "var(--dark-orange)",
-                }}
-              >
-                Create New
-              </button>
-            </div>
+            <div className="pl-4">
+              <div className="flex gap-3 mb-3">
+                <button
+                  onClick={() => setProjMode("select")}
+                  className="px-3 py-1 text-xs rounded border font-semibold"
+                  style={{
+                    borderColor: "var(--dark-orange)",
+                    backgroundColor: projMode === "select" ? "var(--dark-orange)" : "transparent",
+                    color: projMode === "select" ? "#fff" : "var(--dark-orange)",
+                  }}
+                >
+                  Select Existing
+                </button>
+                <button
+                  onClick={() => { setProjMode("new"); setProjDescription(""); }}
+                  className="px-3 py-1 text-xs rounded border font-semibold"
+                  style={{
+                    borderColor: "var(--dark-orange)",
+                    backgroundColor: projMode === "new" ? "var(--dark-orange)" : "transparent",
+                    color: projMode === "new" ? "#fff" : "var(--dark-orange)",
+                  }}
+                >
+                  Create New
+                </button>
+              </div>
 
-            {projMode === "select" && (
-              <div className="flex flex-col gap-2">
-                <div>
-                  <label style={labelStyle}>Select Project</label>
-                  <select
-                    value={selectedIidp}
-                    onChange={(e) => setSelectedIidp(e.target.value)}
-                    style={inputStyle}
-                  >
-                    {filteredProjects.map((p) => (
-                      <option key={p.iidp} value={p.iidp}>{p.projectName}</option>
-                    ))}
-                  </select>
+              {projMode === "select" && (
+                <div className="flex flex-col gap-2">
+                  <div>
+                    <label style={labelStyle}>Select Project</label>
+                    <select
+                      value={selectedIidp}
+                      onChange={(e) => setSelectedIidp(e.target.value)}
+                      style={inputStyle}
+                    >
+                      {filteredProjects.map((p) => (
+                        <option key={p.iidp} value={p.iidp}>{p.projectName}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="grid grid-cols-3 gap-2">
+                    <div>
+                      <label style={labelStyle}>IIDP</label>
+                      <input type="text" value={selectedIidp} readOnly style={readonlyStyle} />
+                    </div>
+                    <div>
+                      <label style={labelStyle}>Proj ID</label>
+                      <input
+                        type="text"
+                        value={editProjId}
+                        onChange={(e) => setEditProjId(e.target.value)}
+                        style={inputStyle}
+                      />
+                    </div>
+                    <div>
+                      <label style={labelStyle}>Project Name</label>
+                      <input
+                        type="text"
+                        value={editProjName}
+                        onChange={(e) => setEditProjName(e.target.value)}
+                        style={inputStyle}
+                      />
+                    </div>
+                  </div>
                 </div>
+              )}
+
+              {projMode === "new" && (
                 <div className="grid grid-cols-3 gap-2">
                   <div>
                     <label style={labelStyle}>IIDP</label>
-                    <input type="text" value={selectedIidp} readOnly style={readonlyStyle} />
+                    <input
+                      type="text"
+                      value={nextIidp(projCounter + 1)}
+                      readOnly
+                      style={readonlyStyle}
+                    />
                   </div>
                   <div>
                     <label style={labelStyle}>Proj ID</label>
                     <input
                       type="text"
-                      value={editProjId}
-                      onChange={(e) => setEditProjId(e.target.value)}
+                      value={newProjId}
+                      onChange={(e) => setNewProjId(e.target.value)}
                       style={inputStyle}
+                      placeholder="e.g. PRJ"
                     />
                   </div>
                   <div>
                     <label style={labelStyle}>Project Name</label>
                     <input
                       type="text"
-                      value={editProjName}
-                      onChange={(e) => setEditProjName(e.target.value)}
+                      value={newProjName}
+                      onChange={(e) => setNewProjName(e.target.value)}
                       style={inputStyle}
+                      placeholder="Name"
                     />
                   </div>
                 </div>
-              </div>
-            )}
-
-            {projMode === "new" && (
-              <div className="grid grid-cols-3 gap-2">
-                <div>
-                  <label style={labelStyle}>IIDP</label>
-                  <input
-                    type="text"
-                    value={nextIidp(projCounter + 1)}
-                    readOnly
-                    style={readonlyStyle}
-                  />
-                </div>
-                <div>
-                  <label style={labelStyle}>Proj ID</label>
-                  <input
-                    type="text"
-                    value={newProjId}
-                    onChange={(e) => setNewProjId(e.target.value)}
-                    style={inputStyle}
-                    placeholder="e.g. PRJ"
-                  />
-                </div>
-                <div>
-                  <label style={labelStyle}>Project Name</label>
-                  <input
-                    type="text"
-                    value={newProjName}
-                    onChange={(e) => setNewProjName(e.target.value)}
-                    style={inputStyle}
-                    placeholder="Name"
-                  />
-                </div>
-              </div>
-            )}
+              )}
+            </div>
           </section>
 
           <section>
-            <h3 className="font-semibold text-sm mb-2" style={{ color: "var(--orange)" }}>
-              Project Description
-            </h3>
-            <textarea
-              value={projDescription}
-              onChange={(e) => setProjDescription(e.target.value)}
-              rows={3}
-              style={{ ...inputStyle, resize: "vertical" }}
-              placeholder="Short description of the project"
-            />
+            <div className="pl-4">
+              <label style={labelStyle}>Project Description</label>
+              <textarea
+                value={projDescription}
+                onChange={(e) => setProjDescription(e.target.value)}
+                rows={3}
+                style={{ ...inputStyle, resize: "vertical" }}
+                placeholder="Short description of the project"
+              />
+            </div>
           </section>
         </div>
 

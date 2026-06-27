@@ -72,9 +72,10 @@ export default function ProjectDashboard({
         {role === "administrator" && (
           <button
             onClick={onAdminConfig}
-            className="px-4 py-2 text-sm font-semibold text-white rounded cursor-pointer"
+            className="px-4 py-2 text-sm font-semibold text-white rounded cursor-pointer flex items-center gap-2"
             style={{ backgroundColor: "var(--dark-orange)" }}
           >
+            <span>⚙</span>
             Admin Config
           </button>
         )}

@@ -61,7 +61,7 @@ export default function SwimlaneRow({
         >
           <div
             className="flex items-center gap-2 px-3 py-2 border-b"
-            style={{ borderColor: "var(--accent-yellow)", backgroundColor: "#fffdf0" }}
+            style={{ borderColor: "var(--accent-yellow)", backgroundColor: "#f0eeff" }}
           >
             <div {...provided.dragHandleProps} className="cursor-grab active:cursor-grabbing text-gray-400 select-none px-1" title="Drag to reorder swimlane">
               &#9776;
